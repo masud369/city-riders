@@ -1,0 +1,29 @@
+.set-destination{
+    background-color:#e5e5e5;
+    height: 210px;
+}
+.set-destination input[type=text]{
+    width: 100%;
+    height: 35px;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.set-destination input[type=text]:focus{
+    outline: none;
+   
+}
+.set-destination label {
+    display: inline-block;
+    margin-right: 78%;
+}
+.set-destination button{
+    background-color: #ff5722;
+    border: navajowhite;
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
+}

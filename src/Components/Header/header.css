@@ -1,0 +1,18 @@
+.header-wrap{
+}
+.header-wrap a{
+    text-decoration: none;
+}
+.color-white{
+    color:rgb(182, 44, 44);
+}
+.logo{
+    width:20%;
+}
+.menu{
+    width: 70%;
+    display: flex;
+}
+.menu li{
+    list-style-type: none;
+}
