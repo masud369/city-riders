@@ -1,0 +1,12 @@
+.location{
+    background-color: #ff5722;
+    padding: 10px;
+}
+.location h5{
+    text-align: start;
+    color: white;
+    padding: 5px;
+}
+.person{
+    background-color: white;
+}

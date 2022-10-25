@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PassLocation } from '../../App';
 import './SearchDestination.css'
 
 
 const SearchDestination = () => {
+    const [getLocation, setGetLocation] = useState({
+        
+    });
+     
+    const handelLocation = (e)=>{
+        let nameCheck = true;
+        if(e.target.name === 'from'){
+            nameCheck = e.target.value; 
+        }
+        if(e.target.name === 'to'){
+            nameCheck = e.target.value;
+        }
+        if(nameCheck){
+            const passlocation = {...getLocation}
+            passlocation[e.target.name] = e.target.value
+            setGetLocation(passlocation)
+        }
+        
+    }
+    const [location, setLocation] = useContext(PassLocation)
+    const navigat = useNavigate(); 
+    const passtoFixedDestination = ()=>{
+        if(location.from && location.to){
+            navigat("/destinationfixed")
+        }
+    }
+    const passedLocation =()=>{
+        const newLocation = {...getLocation}
+        setLocation(newLocation)  
+        navigat("/destinationfixed")
+    }
+
     return (
         <div>
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 set-destination my-5 p-3 rounded">
                         <label htmlFor="from">Pic From</label>
-                        <input  type="text" id='from'/><br />
-                        <label style={{marginRight:'86%'}} htmlFor="to">Pic To</label>
-                        <input type="text" id='to'/><br />
-                        <button>Search</button>
+                        <input onChange={handelLocation} name='from' type="text" id='from'/><br />
+                        <label  style={{marginRight:'86%'}}  htmlFor="to">Pic To</label>
+                        <input type="text" onChange={handelLocation} name='to' id='to'/><br />
+                        <button  onClick={passedLocation}>Search</button>
                         
                     </div>
                     <div className="col-md-8 destination-map">

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FbNGoogle from "../FacebookNGoole/FbNGoogle";
 import "./signup.css";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
 import { firebaseConfig } from "../FirebaseConfig/Firebaseconfig";
+import { UserContext } from "../../App";
 
 initializeApp(firebaseConfig);
 const Login = () => {
-  const [login, setLogin] = useState({
+  const [logedin, setLogedin] = useState({
     email: "",
     password: "",
   });
@@ -21,20 +22,27 @@ const Login = () => {
       checkValidaty = e.target.value;
     }
     if (checkValidaty) {
-      const signUpUser = { ...login };
+      const signUpUser = { ...logedin };
       signUpUser[e.target.name] = e.target.value;
-      setLogin(signUpUser);
+      setLogedin(signUpUser);
       console.log(signUpUser);
     }
   };
-
-  const handelEmlNPassSup = (e) => {
+  const [login, setLogin] = useContext(UserContext);
+  const location = useLocation();
+  const navigat = useNavigate();
+  const handelEmlNPassSinnnn = (e) => {
     e.preventDefault();
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, login.email, login.password)
+    signInWithEmailAndPassword(auth, logedin.email, logedin.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        const newUser = {...logedin}
+        setLogin(newUser)
+        if(location.state?.from){
+          navigat(location.state.from)
+        }
         console.log(user)
         // ...
       })
@@ -46,11 +54,11 @@ const Login = () => {
 
   return (
     <div>
-        <p>email:{login.email}</p>
+        <p>email:{logedin.email}</p>
       <div className="create-email-account">
         <h2>Create an account</h2>
-        <p>{login.name}</p>
-        <form onSubmit={handelEmlNPassSup}>
+        <p>{logedin.name}</p>
+        <form onSubmit={handelEmlNPassSinnnn}>
           <input
             type="email"
             onMouseOut={checkName}
@@ -71,7 +79,7 @@ const Login = () => {
           <input type="submit" value="Login" />
         </form>
         <p>
-          Don't have account? <Link to="/login">Create an account</Link>{" "}
+          Don't have account? <Link to="/signup">Create an account</Link>{" "}
         </p>
       </div>
       <span>or</span>
